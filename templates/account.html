@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
+</head>
+
+<body>
+    <h1> Game Blog </h1>
+    <h3> Welcome <b>{{username}}</b></h3>
+    <br>
+    {% for game_name in saved_games %}
+    <h5>{{game_name}}</h5>
+    {% endfor %}
+    <br>
+    <br>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <Text class="flashes">
+        {{message}}
+    </Text>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <br>
+    <br>
+    <form method="POST" action="/account">
+        <input type="text" name="game_name" placeholder="Add Games!" />
+        <input type="submit" class="submit" value="Submit" />
+    </form>
+    <br>
+    <form method="POST" action="/main">
+        <input type="submit" value="Return to Main Page" />
+    </form>
+    <br>
+    <form method="POST" action="/logout">
+        <input type="submit" value="Log Out!" />
+    </form>
+</body>

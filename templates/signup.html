@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
+</head>
+
+<body>
+    <h1 text-align: center;>Game Blog</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ messages }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/signup">
+        <input type="text" placeholder="Your Username" name="userName" />
+        <input type="password" placeholder="Password" name="userPW" />
+        <input type="password" placeholder="Re-enter Password" name="userRePW" />
+
+        <input type="submit" value="Submit!" />
+    </form>
+
+    <a class="lr" href="{{url_for('index')}}"> Go back to Welcome page </a>
+
+    </div>
+</body>
+
+</html>
