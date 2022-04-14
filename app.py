@@ -132,7 +132,11 @@ def login():
 
         user_form = flask.request.form
 
-        if Users.query.filter_by(username=user_form["userName"]).first():
+        if user_form["userName"] == None:
+            flask.flash("Can't Find User Info, Please Check Again")
+            return flask.render_template("login.html")
+
+        elif Users.query.filter_by(username=user_form["userName"]).first():
             user_name = user_form["userName"]
             userPW = user_form["userPW"]
             user = Users.query.filter_by(username=user_name).first()
@@ -293,4 +297,5 @@ def oauth2callback():
     """
 
 
-app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
+# app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
+app.run(debug=True)
