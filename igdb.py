@@ -3,7 +3,7 @@ IGDB Movie Data & API Query
 Nathan Heckman
 """
 
-#pylint: disable=line-too-long, invalid-name, pointless-string-statement, bare-except
+# pylint: disable=line-too-long, invalid-name, pointless-string-statement, bare-except, unused-variable
 
 import os
 import json
@@ -38,13 +38,13 @@ def get_igdb_token_json():
     # Print JSON neatly (must add print statement)
     return json.dumps(game_data, indent=4, sort_keys=True)
 
+
 def get_game_data(game_id: int):
     """
     Used to return the movie data for rendering in the application.
     Gets JSON and interprets from site using id associated with every game.
     """
     base_url = "https://api.igdb.com/v4/games"
-
 
     headers = {
         "Client-ID": client_id,
@@ -55,14 +55,17 @@ def get_game_data(game_id: int):
     # Get all available data. Can be changed to only get specific information
     data = f"fields *; where id = {game_id};"
 
-
     response = requests.post(base_url, data=data, headers=headers)
 
     # Returns Python dictionary
     game_data = response.json()
 
-    # Print JSON neatly (must add print statement)
-    return json.dumps(game_data, indent=4, sort_keys=True)
+    game_id = game_data[0]["id"]
+    game_name = game_data[0]["name"]
+    game_summary = game_data[0]["summary"]
+
+    return game_id, game_name, game_summary
+
 
 def search_game_data(game_name: str):
     """
@@ -88,9 +91,9 @@ def search_game_data(game_name: str):
         # Returns Python dictionary
         game_data = response.json()
 
-        game_id = game_data[0]['id']
-        game_name = game_data[0]['name']
-        game_summary = game_data[0]['summary']
+        game_id = game_data[0]["id"]
+        game_name = game_data[0]["name"]
+        game_summary = game_data[0]["summary"]
 
         cover_url = get_cover_url(game_id)
 
@@ -98,6 +101,7 @@ def search_game_data(game_name: str):
         return game_name, cover_url, game_summary
     except:
         return "Invalid Name"
+
 
 def get_cover_url(game_id: int):
     """
@@ -112,7 +116,7 @@ def get_cover_url(game_id: int):
     }
 
     # Get the specific URL for that game's thumbnail cover image
-    data = f'fields url; where game = {game_id};'
+    data = f"fields url; where game = {game_id};"
 
     response = requests.post(base_url, data=data, headers=headers)
 
@@ -120,7 +124,7 @@ def get_cover_url(game_id: int):
     cover_data = response.json()
 
     # Get the thumbnail version of the image fro JSON response
-    image_url = cover_data[0]['url']
+    image_url = cover_data[0]["url"]
 
     # Get only the specific image file name
     image_file = image_url[44:]
@@ -130,6 +134,42 @@ def get_cover_url(game_id: int):
 
     # Return cleaned image URL
     return image_url
+
+def get_similar_games(game_name: str):
+    """
+    Returns name images and description for similar games to the one that was searched in the app
+    """
+    game_name = clean_string(game_name)
+
+    base_url = "https://api.igdb.com/v4/games"
+
+    headers = {
+        "Client-ID": client_id,
+        "Authorization": "Bearer " + access_token,
+        "Accept": "application/json",
+    }
+
+    # Get all available data. Can be changed to only get specific information
+    data = f'fields similar_games; where slug = "{game_name}"; limit 3;'
+
+    response = requests.post(base_url, data=data, headers=headers)
+
+    # Returns Python dictionary
+    game_data = response.json()
+
+    similar_game_ids = game_data[0]["similar_games"]
+
+    similar_game_data = []
+    for game in similar_game_ids:
+        entry = []
+        game_id, name, summary = get_game_data(game)
+        entry.append(name)
+        entry.append(get_cover_url(game_id))
+        similar_game_data.append(entry)
+
+    # Return the similar game information as array of game IDs
+    return similar_game_data
+
 
 def clean_string(s: str):
     """
@@ -143,8 +183,13 @@ def clean_string(s: str):
 
     return s.strip().lower().replace(" ", "-")
 
-'''Example Use Cases'''
 
-''' print(get_game_data(1074))  <-- Generate data for Super Mario 64 based on Game ID '''
-''' print(search_game_data("Super Mario Strikers")) <-- Returns game title, cover art url, and summary currently. If doesn't exist, returns "Invalid Name" '''
-''' print(get_cover_url(2256)) <-- Used within search_game_data(). This example generates the cover art for Super Mario Strikers '''
+"""
+Example Use Cases
+
+print(get_game_data(1074))  <-- Generate data for Super Mario 64 based on Game ID
+print(search_game_data("Super Mario Strikers")) <-- Returns game title, cover art url, and summary currently. If doesn't exist, returns "Invalid Name"
+print(get_cover_url(2256)) <-- Used within search_game_data(). This example generates the cover art for Super Mario Strikers
+print(get_similar_games('super mario 64')) <-- Used to get similar games to the given title. Utilizes get_game_data and get_cover_url 
+
+"""

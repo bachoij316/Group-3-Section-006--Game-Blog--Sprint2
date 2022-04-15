@@ -2,7 +2,9 @@
 <html>
 
 <head>
-    <title>index</title>
+    <link rel="icon" type="image/png" href="static/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="static/favicon-16x16.png" sizes="16x16" />
+    <title>Game Blog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
 </head>
@@ -31,6 +33,14 @@
     <h3>{{ game_name }}</h3>
     <img src="{{cover_url}}">
     <h5>{{ game_summary }}</h5>
+
+    <br>
+
+    <h3><b>Similar Games</b></h3>
+    {% for game in similar_game_data %}
+    <h5>{{ game[0] }}</h5>
+    <img src="{{game[1]}}">
+    {% endfor %}
 
     <form method="POST" action="/account">
         <input type="submit" value="Check out your account" />

@@ -4,11 +4,13 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
-.flashes{
-    color:red;
+
+.flashes {
+    color: red;
     font-weight: bold;
     font-size: 15px;
 }
-h5{
+
+h5 {
     font-size: 20px;
 }

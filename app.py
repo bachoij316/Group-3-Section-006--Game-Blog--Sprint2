@@ -36,7 +36,7 @@ from flask_login import (
     logout_user,
     current_user,
 )
-from igdb import search_game_data, get_cover_url, clean_string, get_game_data
+from igdb import get_similar_games, search_game_data, get_cover_url, clean_string, get_game_data
 
 
 load_dotenv(find_dotenv())
@@ -131,7 +131,7 @@ def login():
 
         user_form = flask.request.form
 
-        if user_form["userName"] == None:
+        if user_form["userName"] is None:
             flask.flash("Can't Find User Info, Please Check Again")
             return flask.render_template("login.html")
 
@@ -267,6 +267,9 @@ def main():
             flask.flash("Game does not exist or invalid name. Try again!")
         else:
             game_name, cover_url, game_summary = search_game_data(input_game)
+            #This will be a 2D array with each subarray having 2 elements (name and cover url)
+            similar_game_data = get_similar_games(input_game)
+
             return flask.render_template(
                 "main.html",
                 game_name=game_name,
@@ -274,6 +277,7 @@ def main():
                 game_summary=game_summary,
                 username=oauth2.email,
                 user_id=oauth2.user_id,
+                similar_game_data = similar_game_data,
             )
     return flask.render_template(
         "main.html",
@@ -296,5 +300,5 @@ def oauth2callback():
     """
 
 
-app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-# app.run(debug=True)
+# app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
+app.run(debug=True)
