@@ -18,7 +18,7 @@ from dotenv import load_dotenv, find_dotenv
 from flask import Flask, session, abort, redirect
 
 from flask_sqlalchemy import SQLAlchemy
-
+from gamespot import get_game_article
 from oauth2client.contrib.flask_util import UserOAuth2
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -283,6 +283,24 @@ def main():
     )
 
 
+@app.route("/main2", methods=["GET", "POST"])
+def main2():
+    return flask.render_template("main.html")
+
+
+@app.route("/NEWS", methods=["GET", "POST"])
+def NEWS():
+    art_data = get_game_article()
+    return flask.render_template(
+        "NEWS.html",
+        article1=art_data[0],
+        article2=art_data[1],
+        article3=art_data[2],
+        article4=art_data[3],
+        article5=art_data[4],
+    )
+
+
 @app.route("/oauth2authorize")
 def oauth2authorize():
     """
@@ -298,4 +316,4 @@ def oauth2callback():
 
 
 app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-# app.run(debug=True)
+# app.run(debug=True) #to run it in local
