@@ -1,4 +1,4 @@
-<h1>Sprint 1 - Game Blog</h1>
+<h1>Sprint 2 - Game Blog</h1>
 
 <p>Nathan Heckman<br>
 <p>Ba Choi<br>
@@ -6,7 +6,7 @@
 <p>Chris English<br>
 <p>Aaron Reyes<br>
   
-<p>Heroku link: https://quiet-cliffs-46731.herokuapp.com <br>  
+<p>Heroku link: https://hidden-harbor-01684.herokuapp.com/ <br>  
   
 ![image](https://user-images.githubusercontent.com/73363915/162442747-99d5520e-b385-4bd8-8d82-6f5fe901f12c.png)
   
@@ -22,6 +22,8 @@
   wtform :  StringField, SubmitField, PasswordField, from wtforms.validators import DataRequired, EqualTo
 
   Twitch :  f"https://id.twitch.tv/oauth2/token?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials"
+  
+  IGDB API
 
   json
 
