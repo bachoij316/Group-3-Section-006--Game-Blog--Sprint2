@@ -8,7 +8,6 @@ Chris English, Aaron Reyes
 """
 
 import os
-from re import L
 import flask
 import requests
 from sqlalchemy import ForeignKey
