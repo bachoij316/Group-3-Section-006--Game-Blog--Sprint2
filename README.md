@@ -13,19 +13,19 @@
   
   <h2> Dependencies </h2>
   
-  Flask : sqlAlchemy, flask_login,  UserMixin, LoginManager
+  Flask: sqlAlchemy, flask_login,  UserMixin, LoginManager
 
-  Google : google.oauth2.creditials, google_auth_oauthlib.flow, from oauth2client.contrib.flask_util import UserOAuth2
+  Google: google.oauth2.creditials, google_auth_oauthlib.flow, from oauth2client.contrib.flask_util import UserOAuth2
 
   bcrypt
 
-  wtform :  StringField, SubmitField, PasswordField, from wtforms.validators import DataRequired, EqualTo
+  wtform:  StringField, SubmitField, PasswordField, from wtforms.validators import DataRequired, EqualTo
 
-  Twitch :  f"https://id.twitch.tv/oauth2/token?client_id={client_id}&client_secret={client_secret}&grant_type=client_credentials"
+  Twitch:  For initial IGDB access token
   
-  IGDB API
+  IGDB API: Displaying game recommendations, game search information
 
-  json
+  JSON
 
   request
 
