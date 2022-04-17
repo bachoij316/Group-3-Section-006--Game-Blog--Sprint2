@@ -132,7 +132,7 @@ def login():
         user_form = flask.request.form
 
         if user_form["userName"] is None:
-            flask.flash("Can't Find User Info, Please Check Again")
+            flask.flash("Invalid User Information. Try Again!")
             return flask.render_template("login.html")
 
         elif Users.query.filter_by(username=user_form["userName"]).first():
@@ -150,11 +150,11 @@ def login():
 
                 return flask.render_template("main.html", username=user.username)
             else:
-                flask.flash("Can't Find User Info, Please Check Again")
+                flask.flash("Invalid User Information. Try Again!")
                 return flask.render_template("login.html")
 
         else:
-            flask.flash("Can't Find User Info, Please Check Again")
+            flask.flash("Invalid User Information. Try Again!")
             return flask.render_template("login.html")
     else:
         return flask.render_template("login.html")
