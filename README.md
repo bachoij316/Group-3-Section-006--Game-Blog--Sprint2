@@ -8,7 +8,7 @@
   
 <p>Heroku link: https://hidden-harbor-01684.herokuapp.com/ <br>  
   
-![image](https://user-images.githubusercontent.com/73363915/162442747-99d5520e-b385-4bd8-8d82-6f5fe901f12c.png)
+![image](https://user-images.githubusercontent.com/73363915/163700316-fb406cc5-f66f-48d9-978a-6034765fb0ad.png))
   
   
   <h2> Dependencies </h2>
