@@ -10,11 +10,14 @@
 </head>
 
 <body>
-    <h1 text-align: center;>Game Blog</h1>
+    <div class="logo">
+        <img class="controller" src="static/favicon-32x32.png" />
+        <h2 class="game-blog"> Game Blog </h2>
+    </div>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
-    <p>{{ messages }}</p>
+    <p class="error">{{ message }}</p>
     {% endfor %}
     {% endif %}
     {% endwith %}

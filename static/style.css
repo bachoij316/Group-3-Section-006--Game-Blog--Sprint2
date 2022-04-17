@@ -1,3 +1,13 @@
+body {
+    text-align: center;
+    background-color: lightgreen;
+    font-family: Verdana;
+}
+
+h5 {
+    font-size: 20px;
+}
+
 .G_button {
     height: 20%;
     width: 20%;
@@ -5,12 +15,39 @@
     margin-bottom: 20px;
 }
 
-.flashes {
+.error {
     color: red;
     font-weight: bold;
     font-size: 15px;
 }
+.controller {
+    position: relative;
+}
 
-h5 {
-    font-size: 20px;
+.searched-game-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.recommendations {
+    height: 100px;
+    width: 100px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.game-blog {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 10%;
+    padding: 5px;
 }
