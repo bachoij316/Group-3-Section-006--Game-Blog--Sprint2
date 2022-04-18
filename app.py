@@ -13,6 +13,7 @@ import requests
 from sqlalchemy import ForeignKey
 import bcrypt
 from dotenv import load_dotenv, find_dotenv
+from gamespot import get_game_article
 
 from flask import Flask, session, abort, redirect
 
@@ -36,7 +37,13 @@ from flask_login import (
     logout_user,
     current_user,
 )
-from igdb import get_similar_games, search_game_data, get_cover_url, clean_string, get_game_data
+from igdb import (
+    get_similar_games,
+    search_game_data,
+    get_cover_url,
+    clean_string,
+    get_game_data,
+)
 
 
 load_dotenv(find_dotenv())
@@ -267,7 +274,7 @@ def main():
             flask.flash("Game does not exist or invalid name. Try again!")
         else:
             game_name, cover_url, game_summary = search_game_data(input_game)
-            #This will be a 2D array with each subarray having 2 elements (name and cover url)
+            # This will be a 2D array with each subarray having 2 elements (name and cover url)
             similar_game_data = get_similar_games(input_game)
 
             return flask.render_template(
@@ -277,12 +284,30 @@ def main():
                 game_summary=game_summary,
                 username=oauth2.email,
                 user_id=oauth2.user_id,
-                similar_game_data = similar_game_data,
+                similar_game_data=similar_game_data,
             )
     return flask.render_template(
         "main.html",
         username=oauth2.email,
         user_id=oauth2.user_id,
+    )
+
+
+@app.route("/main2", methods=["GET", "POST"])
+def main2():
+    return flask.render_template("main.html")
+
+
+@app.route("/NEWS", methods=["GET", "POST"])
+def NEWS():
+    art_data = get_game_article()
+    return flask.render_template(
+        "NEWS.html",
+        article1=art_data[0],
+        article2=art_data[1],
+        article3=art_data[2],
+        article4=art_data[3],
+        article5=art_data[4],
     )
 
 
