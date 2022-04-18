@@ -53,6 +53,9 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <a href="{{url_for('NEWS')}}"> <img class="gamingNews" src="static/gamingNews.jpg"></a>
+
     <form method="POST" action="/account">
         <input type="submit" value="View Account" />
     </form>
