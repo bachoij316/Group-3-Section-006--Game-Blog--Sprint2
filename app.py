@@ -317,9 +317,7 @@ def gamePlatform():
     platform = data["platform"]
     numbers = data["numbers"]
     game_data = get_game_platform(platform, numbers)
-    print("**********")
-
-    print(game_data)
+    
     return flask.render_template(
         "gamePlatform.html", game_data=game_data, page_num=int(numbers)
     )
