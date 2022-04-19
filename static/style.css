@@ -70,3 +70,25 @@ h5 {
     flex: 10%;
     padding: 5px;
 }
+
+.gamePlatform{
+    margin:auto;
+
+    width:30%;
+    height:auto;
+    border-style: solid;
+    border: 5px outset rgb(145, 145, 235);
+    border-radius:0.5em;
+
+}
+
+.eachPlatform{
+    margin:auto;
+    font-size : 18px;
+    width:40%;
+    height:auto;
+    border-style: solid;
+    border: 5px outset rgb(145, 145, 235);
+    border-radius:3em;
+
+}
