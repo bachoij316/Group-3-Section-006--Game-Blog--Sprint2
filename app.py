@@ -14,7 +14,7 @@ from sqlalchemy import ForeignKey
 import bcrypt
 from dotenv import load_dotenv, find_dotenv
 from gamespot import get_game_article
-
+from gamePlatform import get_game_platform
 from flask import Flask, session, abort, redirect
 
 from flask_sqlalchemy import SQLAlchemy
@@ -308,6 +308,20 @@ def NEWS():
         article3=art_data[2],
         article4=art_data[3],
         article5=art_data[4],
+    )
+
+
+@app.route("/gamePlatform", methods=["GET", "POST"])
+def gamePlatform():
+    data = flask.request.form
+    platform = data["platform"]
+    numbers = data["numbers"]
+    game_data = get_game_platform(platform, numbers)
+    print("**********")
+
+    print(game_data)
+    return flask.render_template(
+        "gamePlatform.html", game_data=game_data, page_num=int(numbers)
     )
 
 
