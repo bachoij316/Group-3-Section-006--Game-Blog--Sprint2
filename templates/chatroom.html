@@ -4,16 +4,38 @@
 <head>
     <link rel="icon" type="image/png" href="static/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="static/favicon-16x16.png" sizes="16x16" />
-    <title>Chatroom</title>
+    <title>Chat Room</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
 <body>
-    <div >
-       
-
-    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+        
+            var socket = io.connect('http://127.0.0.1:5000');
+        
+            socket.on('connect', function() {
+                socket.send('User has connected!');
+            });
+        
+            socket.on('message', function(msg) {
+                $("#messages").append('<li>'+msg+'</li>');
+                console.log('Received message');
+            });
+        
+            $('#sendbutton').on('click', function() {
+                socket.send($('#myMessage').val());
+                $('#myMessage').val('');
+            });
+        
+        });
+        </script>
+        <ul id="messages"></ul>
+        <input type="text" id="myMessage">
+        <button id="sendbutton">Send</button>
 </body>
 
 </html>
