@@ -20,8 +20,14 @@ h5 {
     font-weight: bold;
     font-size: 15px;
 }
+
 .controller {
     position: relative;
+}
+
+.news_story_header {
+    font-weight: bold;
+    padding: 10px;
 }
 
 .searched-game-title {
@@ -33,9 +39,12 @@ h5 {
     height: 100px;
     width: 100px;
 }
+
 .logo {
     display: flex;
+    justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .game-blog {

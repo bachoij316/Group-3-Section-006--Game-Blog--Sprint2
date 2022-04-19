@@ -2,77 +2,63 @@
 <html>
 
 <head>
-    <title>index</title>
+    <link rel="icon" type="image/png" href="static/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="static/favicon-16x16.png" sizes="16x16" />
+    <title>Game Blog</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
 </head>
 
-
-
 <body>
-    <h1> Game Blog </h1>
-    <h2>Top 5 Latest Game NEWS</h2>
-    <div class=box>
+    <div class="logo">
+        <img class="controller" src="static/favicon-32x32.png" />
+        <h2 class="game-blog"> Game Blog </h2>
+    </div>
+    <h2>Top 5 Latest Game News</h2>
+    <div class="box">
         <details>
-            <summary>{{article1[1]}}</summary>
+            <summary class="news_story_header">{{article1[1]}}</summary>
             <figure>
                 <p>Author: {{article1[4]}}, Published on {{article1[0]}}</p>
                 <img class=img1 src="{{article1[2]}}" />
             </figure>
             <div>{{article1[3]}}</div>
-
-
-        </details>>
-
+        </details>
         <details>
-            <summary>{{article2[1]}}</summary>
+            <summary class="news_story_header">{{article2[1]}}</summary>
             <figure>
                 <p>Author: {{article2[4]}}, Published on {{article1[0]}}</p>
                 <img class=img1 src="{{article2[2]}}" />
             </figure>
             <div>{{article2[3]}}</div>
-
-
-        </details>>
-
+        </details>
         <details>
-            <summary>{{article3[1]}}</summary>
+            <summary class="news_story_header">{{article3[1]}}</summary>
             <figure>
                 <p>Author: {{article3[4]}}, Published on {{article1[0]}}</p>
                 <img class=img1 src="{{article3[2]}}" />
             </figure>
             <div>{{article3[3]}}</div>
-
-
-        </details>>
-
+        </details>
         <details>
-            <summary>{{article4[1]}}</summary>
+            <summary class="news_story_header">{{article4[1]}}</summary>
             <figure>
                 <p>Author: {{article4[4]}}, Published on {{article1[0]}}</p>
                 <img class=img1 src="{{article4[2]}}" />
             </figure>
             <div>{{article4[3]}}</div>
-
-
-        </details>>
-
+        </details>
         <details>
-            <summary>{{article5[1]}}</summary>
+            <summary class="news_story_header">{{article5[1]}}</summary>
             <figure>
                 <p>Author: {{article5[4]}}, Published on {{article1[0]}}</p>
                 <img class=img1 src="{{article5[2]}}" />
             </figure>
             <div>{{article5[3]}}</div>
-
-
-        </details>>
+        </details>
     </div>
 
-
-
-    <a href="{{url_for('main2')}}"> Go back to the Main page </a>
-
+    <a href="{{url_for('main2')}}">Go back to the Main page</a>
 
     <form method="POST" action="/logout">
         <input type="submit" value="Log Out!" />
