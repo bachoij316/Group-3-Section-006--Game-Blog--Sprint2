@@ -55,6 +55,7 @@ app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.config["BCRYPT_LEVEL"] = 10
 socketio = SocketIO(app)
+
 # bcrypt = Bcrypt(app)
 
 # Point SQLAlchemy to your Heroku database
@@ -337,4 +338,4 @@ def chatroom():
     return flask.render_template("chatroom.html")
 
 # app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-# socketio.run(app)
+socketio.run(app)
