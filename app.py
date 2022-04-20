@@ -332,6 +332,9 @@ def oauth2callback():
     This function is used by ouath for callback to the original webpage
     """
 
+@app.route("/chatroom", methods=["GET", "POST"])
+def chatroom():
+    return flask.render_template("chatroom.html")
 
 # app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
 # socketio.run(app)
