@@ -17,7 +17,7 @@ from dotenv import load_dotenv, find_dotenv
 from gamespot import get_game_article
 
 from flask import Flask, session, abort, redirect, render_template
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, emit
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -97,8 +97,11 @@ def unauthorized():
 
 @socketio.on('message')
 def handleMessage(msg):
-    print('Message: ' + msg)
-    send(msg, broadcast=True)
+    send('{.username}: '.format(current_user) + msg, broadcast=True)
+
+@socketio.on('connect')
+def test_connect():
+    send('Client connected: {.username}'.format(current_user))
 
 
 class Users(db.Model, UserMixin):
@@ -335,7 +338,9 @@ def oauth2callback():
 
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
-    return flask.render_template("chatroom.html")
+    user = current_user.username
+
+    return flask.render_template("chatroom.html", username=user)
 
 # app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
 socketio.run(app)
