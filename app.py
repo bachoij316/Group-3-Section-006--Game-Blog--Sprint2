@@ -10,12 +10,14 @@ Chris English, Aaron Reyes
 import os
 import flask
 import requests
+import socketio
 from sqlalchemy import ForeignKey
 import bcrypt
 from dotenv import load_dotenv, find_dotenv
 from gamespot import get_game_article
 from gamePlatform import get_game_platform
 from flask import Flask, session, abort, redirect
+from flask_socketio import SocketIO, send
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -52,6 +54,7 @@ load_dotenv(find_dotenv())
 app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.config["BCRYPT_LEVEL"] = 10
+socketio = SocketIO(app, manage_session=False)
 # bcrypt = Bcrypt(app)
 
 # Point SQLAlchemy to your Heroku database
@@ -90,6 +93,11 @@ def unauthorized():
     are redirected to the login page
     """
     return flask.redirect(flask.url_for("login"))
+
+@socketio.on('message')
+def handleMessage(msg):
+    print('Message: ' + msg)
+    send(msg, broadcast=True)
 
 
 class Users(db.Model, UserMixin):
@@ -311,18 +319,6 @@ def NEWS():
     )
 
 
-@app.route("/gamePlatform", methods=["GET", "POST"])
-def gamePlatform():
-    data = flask.request.form
-    platform = data["platform"]
-    numbers = data["numbers"]
-    game_data = get_game_platform(platform, numbers)
-    
-    return flask.render_template(
-        "gamePlatform.html", game_data=game_data, page_num=int(numbers)
-    )
-
-
 @app.route("/oauth2authorize")
 def oauth2authorize():
     """
@@ -336,6 +332,9 @@ def oauth2callback():
     This function is used by ouath for callback to the original webpage
     """
 
+@app.route("/chatroom", methods=["GET", "POST"])
+def chatroom():
+    return flask.render_template("chatroom.html")
 
 # app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-app.run(debug=True)
+
