@@ -91,6 +91,7 @@ SecretStorage==2.3.1
 service-identity==18.1.0
 simplejson==3.16.0
 six==1.14.0
+setuptools
 snap==0.5
 soupsieve==2.3.2.post1
 SQLAlchemy==1.4.31
