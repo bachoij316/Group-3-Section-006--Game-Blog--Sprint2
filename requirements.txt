@@ -61,3 +61,4 @@ python-engineio==3.13.2
 python-socketio==4.6.0
 gunicorn==19.9.0
 gevent-websocket==0.10.1
+bs4
