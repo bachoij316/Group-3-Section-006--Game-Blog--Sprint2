@@ -63,4 +63,4 @@ python-socketio==4.6.0
 eventlet==0.30.2
 gevent-websocket
 gunicorn
-python==3.9
+
