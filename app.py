@@ -248,7 +248,7 @@ def index():
     return flask.render_template("index.html")
 
 
-@app.route("/account", methods=["GET", "POST"])
+@app.route("/account")
 def account():
     """
     This function gets the account html page and displays it
@@ -263,12 +263,18 @@ def account_post():
     """
     This function saves a user inputted game into the database
     """
-    game_name = flask.request.form.get("game_name")
+    data = flask.request.form
+    game_name = data["game_name"]
+    print(game_name)
     db_game_name = SaveGames.query.filter_by(game_name=game_name).first()
+    print(db_game_name)
     if search_game_data(game_name) == "Invalid Name":
-        flask.flash("Game does not exist or invalid name. Try again!")
-    if game_name == db_game_name:
-        flask.flash("Game already exists. Try again!")
+        flask.flash("Invalid game name. Try again!")
+        return flask.redirect(flask.url_for("account"))
+    if db_game_name:
+        flask.flash("Game already saved. Try again!")
+        return flask.redirect(flask.url_for("account"))
+
     game_commit = SaveGames(username=current_user.username, game_name=game_name)
     db.session.add(game_commit)
     db.session.commit()

@@ -21,6 +21,8 @@
     {% endfor %}
     <br>
     <br>
+
+
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
@@ -30,9 +32,10 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+
     <br>
     <br>
-    <form method="POST" action="/account">
+    <form method="POST" action="/save_game">
         <input type="text" name="game_name" placeholder="Add Games!" />
         <input type="submit" class="submit" value="Submit" />
     </form>
