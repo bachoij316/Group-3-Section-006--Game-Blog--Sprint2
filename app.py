@@ -357,5 +357,4 @@ def chatroom():
 
     return flask.render_template("chatroom.html", username=user)
 
-# app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-socketio.run(app)
+socketio.run(app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
