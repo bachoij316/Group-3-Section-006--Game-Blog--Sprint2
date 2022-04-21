@@ -95,6 +95,11 @@ def unauthorized():
     """
     return flask.redirect(flask.url_for("login"))
 
+@socketio.on('message')
+def handleMessage(msg):
+    print('Message: ' + msg)
+    send(msg, broadcast=True)
+
 
 #socket io decorations
 
@@ -227,9 +232,6 @@ def signup():
     return flask.render_template("signup.html")
 
 
-# return flask.render_template("signup.html")
-
-
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
     """
@@ -326,18 +328,6 @@ def NEWS():
     )
 
 
-@app.route("/gamePlatform", methods=["GET", "POST"])
-def gamePlatform():
-    data = flask.request.form
-    platform = data["platform"]
-    numbers = data["numbers"]
-    game_data = get_game_platform(platform, numbers)
-    
-    return flask.render_template(
-        "gamePlatform.html", game_data=game_data, page_num=int(numbers)
-    )
-
-
 @app.route("/oauth2authorize")
 def oauth2authorize():
     """
@@ -357,4 +347,3 @@ def chatroom():
     return flask.render_template("chatroom.html", username=user)
 
 socketio.run(app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-#app.run(debug=True)
