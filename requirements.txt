@@ -62,3 +62,4 @@ python-socketio==4.6.0
 gunicorn==19.9.0
 gevent-websocket==0.10.1
 bs4
+gevent
