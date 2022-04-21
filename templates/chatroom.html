@@ -11,44 +11,48 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <meta id="my-data" data-name="{{username}}">
     <style>
-        input {display: block;}
-        ul {list-style: none;}
+        input {
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
     </style>
-     <form align="right" method="post" action="/main2">
-        <label>
-        <input type="submit" value="Homepage">
+    <div class="logo">
+        <img class="controller" src="static/favicon-32x32.png" />
+        <h2 class="game-blog"> Game Blog </h2>
+    </div>
+    <form align="center" method="post" action="/main2">
+        <label class="homepage">
+            <input type="submit" value="Homepage">
         </label>
-      </form>
+    </form>
 </head>
 
 <body>
-    
     <script type="text/javascript">
         var myVar = "{{username}}";
-
-        $(document).ready(function() {
-        
+        $(document).ready(function () {
             var socket = io();
-       
-            socket.on('message', function(msg) {
+            socket.on('message', function (msg) {
                 $("#messages").append('<p>' + msg + '</p>');
                 console.log('Received message');
             });
-        
-            $('#sendbutton').on('click', function() {
+
+            $('#sendbutton').on('click', function () {
                 socket.send($('#myMessage').val());
                 $('#myMessage').val('');
             });
-        
+
         });
-        </script>
-        <div id="messages"></div>
-        <div id="textChat">
-            <b style="float: left;">{{username}}: &nbsp;</b>
-            <input type="text" id="myMessage">
-            <button id="sendbutton" style="float: right;">Send</button>
-        </div>
-        
+    </script>
+    <div id="messages"></div>
+    <div style="padding-block:10px" id="textChat">
+        <b style="float: left;">{{username}}: &nbsp;</b>
+        <input type="text" id="myMessage">
+        <button id="sendbutton" style="float: right;">Send</button>
+    </div>
 </body>
 
 </html>
