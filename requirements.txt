@@ -78,7 +78,7 @@ pyOpenSSL==19.0.0
 pyparsing==3.0.7
 pyrsistent==0.15.5
 pyserial==3.4
-python-apt==2.0.0
+python-apt
 python-debian===0.1.36ubuntu1
 python-dotenv==0.19.2
 python-engineio==4.3.1
