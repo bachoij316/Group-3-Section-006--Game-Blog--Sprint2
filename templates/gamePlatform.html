@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" type="image/png" href="static/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="static/favicon-16x16.png" sizes="16x16" />
+    <title>Game Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href={{ url_for( 'static' , filename="style.css" ) }} />
+</head>
+
+<body>
+    <div class="logo">
+        <img class="controller" src="static/favicon-32x32.png" />
+        <h2 class="game-blog"> Game Blog </h2>
+
+    </div>
+    <h2>Best Game by Platform</h2>
+
+    {% for i in range(0,page_num) %}
+
+    <div class="eachPlatform">
+        <img class="img1" src="{{game_data[i][4]}}" />
+        <p>Game Name: <b>{{game_data[i][0]}}</b></p>
+        <p>Platform: {{game_data[i][1]}}</p>
+        <p>Developer: {{game_data[i][2]}}</p>
+        <p>Themes: {{game_data[i][3]}}</p>
+
+        <p>Gamer Score: {{game_data[i][5]}}</p>
+
+    </div>
+
+    {% endfor %}
+
+
+
+    <a href="{{url_for('main2')}}">Go back to the Main page</a>
+
+    <form method="POST" action="/logout">
+        <input type="submit" value="Log Out!" />
+    </form>
+
+</body>
+
+</html>

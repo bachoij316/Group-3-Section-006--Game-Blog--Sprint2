@@ -18,7 +18,7 @@ from gamespot import get_game_article
 
 from flask import Flask, session, abort, redirect, render_template
 from flask_socketio import SocketIO, send, emit
-
+from gamePlatform import get_game_platform
 from flask_sqlalchemy import SQLAlchemy
 
 from oauth2client.contrib.flask_util import UserOAuth2
@@ -323,6 +323,18 @@ def NEWS():
         article3=art_data[2],
         article4=art_data[3],
         article5=art_data[4],
+    )
+
+
+@app.route("/gamePlatform", methods=["GET", "POST"])
+def gamePlatform():
+    data = flask.request.form
+    platform = data["platform"]
+    numbers = data["numbers"]
+    game_data = get_game_platform(platform, numbers)
+    
+    return flask.render_template(
+        "gamePlatform.html", game_data=game_data, page_num=int(numbers)
     )
 
 
