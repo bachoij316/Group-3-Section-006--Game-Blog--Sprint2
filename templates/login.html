@@ -17,7 +17,11 @@
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
+    {% if "Sign Up Completed!" in message %}
+    <p class="success">{{ message }}</p>
+    {% else %}
     <p class="error">{{ message }}</p>
+    {% endif %}
     {% endfor %}
     {% endif %}
     {% endwith %}
@@ -34,7 +38,7 @@
         <a href="{{url_for('oauth2authorize')}}"> <img class="G_button" src="static/signGoogle.png"></a>
     </div>
     <div>
-        <a class="lr" href="{{url_for('index')}}"> Go back to the Welcome page </a>
+        <a class="lr" href="{{url_for('index')}}">Go back to the Welcome Page</a>
     </div>
 </body>
 

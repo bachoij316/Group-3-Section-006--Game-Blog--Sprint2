@@ -207,11 +207,11 @@ def signup():
             return flask.redirect(flask.url_for("signup"))
 
         elif len(user_pw) < 4:
-            flask.flash("Password Must be at least 4 digits")  # already exist
+            flask.flash("Password Must be at least 4 Digits")  # already exist
             return flask.redirect(flask.url_for("signup"))
 
         elif user_pw != user_repw:
-            flask.flash(" Password Not Matching ")
+            flask.flash("Password Not Matching")
             return flask.redirect(flask.url_for("signup"))
 
         else:
