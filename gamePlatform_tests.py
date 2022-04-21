@@ -18,11 +18,18 @@ class IgdbTests(unittest.TestCase):
 
         mock_response = MagicMock()
         mock_response.json.return_value = {}
-        with patch("igdb.requests.get") as mock_get:
+        with patch("gamePlatform.requests.get") as mock_get:
             mock_get.return_value = mock_response
             result = get_game_platform("ios", 2)
             self.assertEqual(
-                result, "//images.igdb.com/igdb/image/upload/t_cover_big/co1xd3.jpg"
+                result, [['The Room Three', 'iOS', 'Fireproof Games', 'Puzzle, Offline, Single-player', 'https://cdn2.whatoplay.com/boxart/reg/150x/theroomthree-ios.webp', 9.67], ['Oddmar', 'iOS', 'Mobge Games', 'Action, Adventure, Platformer, Offline, Single-player', 'https://cdn2.whatoplay.com/boxart/reg/150x/27968-1524135531.webp', 9.48]]
+            ) 
+
+        with patch("gamePlatform.requests.get") as mock_get:
+            mock_get.return_value = mock_response
+            result = get_game_platform("pc", 1)
+            self.assertEqual(
+                result, [['Half-Life: Alyx', 'PC', 'Valve Corporation', 'Action, Adventure, Horror, Single-player, First-Person Shooter', 'https://cdn2.whatoplay.com/boxart/reg/150x/45345-1574589023.webp', 9.8]]
             ) 
 
 
