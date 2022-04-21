@@ -95,21 +95,16 @@ def unauthorized():
     """
     return flask.redirect(flask.url_for("login"))
 
-@socketio.on('message')
+# socket io decorations
+
+@socketio.on("message")
 def handleMessage(msg):
-    print('Message: ' + msg)
-    send(msg, broadcast=True)
+    send("{.username}: ".format(current_user) + msg, broadcast=True)
 
 
-#socket io decorations
-
-@socketio.on('message')
-def handleMessage(msg):
-    send('{.username}: '.format(current_user) + msg, broadcast=True)
-
-@socketio.on('connect')
+@socketio.on("connect")
 def test_connect():
-    send('Client connected: {.username}'.format(current_user))
+    send("Client connected: {.username}".format(current_user))
 
 
 class Users(db.Model, UserMixin):
@@ -206,17 +201,19 @@ def signup():
             return flask.redirect(flask.url_for("signup"))
 
         elif isUN:
-            t = "The user name '"
-            y = "' is already used"
+            t = "The user name "
+            y = " is already used. Try again!"
             flask.flash(t + user_name + y)  # already exist
             return flask.redirect(flask.url_for("signup"))
 
         elif len(user_pw) < 4:
-            flask.flash("Password Must be at least 4 Digits")  # already exist
+            flask.flash(
+                "Password Must be at Least 4 Digits. Try again!"
+            )  # already exist
             return flask.redirect(flask.url_for("signup"))
 
         elif user_pw != user_repw:
-            flask.flash("Password Not Matching")
+            flask.flash("Passwords Must Match. Try again!")
             return flask.redirect(flask.url_for("signup"))
 
         else:
@@ -284,6 +281,7 @@ def main():
     This function returns the main page of the app. Here a user can search
     for a game and navigate to other pages in the app
     """
+    user = current_user.username
     data = flask.request.form
     input_game = data["game"]
     if flask.request.method == "POST":
@@ -299,20 +297,21 @@ def main():
                 game_name=game_name,
                 cover_url=cover_url,
                 game_summary=game_summary,
-                username=oauth2.email,
+                username=user,
                 user_id=oauth2.user_id,
                 similar_game_data=similar_game_data,
             )
     return flask.render_template(
         "main.html",
-        username=oauth2.email,
+        username=user,
         user_id=oauth2.user_id,
     )
 
 
 @app.route("/main2", methods=["GET", "POST"])
 def main2():
-    return flask.render_template("main.html")
+    user = current_user.username
+    return flask.render_template("main.html", username=user)
 
 
 @app.route("/NEWS", methods=["GET", "POST"])
@@ -325,6 +324,18 @@ def NEWS():
         article3=art_data[2],
         article4=art_data[3],
         article5=art_data[4],
+    )
+
+
+@app.route("/gamePlatform", methods=["GET", "POST"])
+def gamePlatform():
+    data = flask.request.form
+    platform = data["platform"]
+    numbers = data["numbers"]
+    game_data = get_game_platform(platform, numbers)
+
+    return flask.render_template(
+        "gamePlatform.html", game_data=game_data, page_num=int(numbers)
     )
 
 
@@ -341,9 +352,13 @@ def oauth2callback():
     This function is used by ouath for callback to the original webpage
     """
 
+
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
     user = current_user.username
     return flask.render_template("chatroom.html", username=user)
 
-socketio.run(app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
+
+socketio.run(
+    app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True
+)

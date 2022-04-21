@@ -15,6 +15,11 @@
         <h2 class="game-blog"> Game Blog </h2>
 
     </div>
+    <form align="center" method="post" action="/main2">
+        <label class="homepage">
+            <input type="submit" value="Homepage">
+        </label>
+    </form>
     <h2>Best Game by Platform</h2>
 
     {% for i in range(0,page_num) %}
@@ -31,10 +36,6 @@
     </div>
 
     {% endfor %}
-
-
-
-    <a href="{{url_for('main2')}}">Go back to the Main page</a>
 
     <form method="POST" action="/logout">
         <input type="submit" value="Log Out!" />

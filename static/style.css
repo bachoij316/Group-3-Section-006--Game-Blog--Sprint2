@@ -20,7 +20,8 @@ h5 {
     font-weight: bold;
     font-size: 15px;
 }
-.success{
+
+.success {
     color: green;
     font-weight: bold;
     font-size: 15px;
@@ -80,11 +81,10 @@ h5 {
 
 .gamePlatform {
     margin: auto;
-
-    width: 30%;
-    height: auto;
+    width: fit-content;
+    height: fit-content;
     border-style: solid;
-    border: 5px outset rgb(145, 145, 235);
+    border: 5px outset green;
     border-radius: 0.5em;
 
 }
@@ -95,7 +95,7 @@ h5 {
     width: 40%;
     height: auto;
     border-style: solid;
-    border: 5px outset rgb(145, 145, 235);
+    border: 5px outset green;
     border-radius: 3em;
 
 }
