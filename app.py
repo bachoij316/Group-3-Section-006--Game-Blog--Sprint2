@@ -15,10 +15,10 @@ from sqlalchemy import ForeignKey
 import bcrypt
 from dotenv import load_dotenv, find_dotenv
 from gamespot import get_game_article
-from gamePlatform import get_game_platform
-from flask import Flask, session, abort, redirect
-from flask_socketio import SocketIO, send
 
+from flask import Flask, session, abort, redirect, render_template
+from flask_socketio import SocketIO, send, emit
+from gamePlatform import get_game_platform
 from flask_sqlalchemy import SQLAlchemy
 
 from oauth2client.contrib.flask_util import UserOAuth2
@@ -54,7 +54,8 @@ load_dotenv(find_dotenv())
 app = flask.Flask(__name__)
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0
 app.config["BCRYPT_LEVEL"] = 10
-socketio = SocketIO(app, manage_session=False)
+socketio = SocketIO(app)
+
 # bcrypt = Bcrypt(app)
 
 # Point SQLAlchemy to your Heroku database
@@ -98,6 +99,17 @@ def unauthorized():
 def handleMessage(msg):
     print('Message: ' + msg)
     send(msg, broadcast=True)
+
+
+#socket io decorations
+
+@socketio.on('message')
+def handleMessage(msg):
+    send('{.username}: '.format(current_user) + msg, broadcast=True)
+
+@socketio.on('connect')
+def test_connect():
+    send('Client connected: {.username}'.format(current_user))
 
 
 class Users(db.Model, UserMixin):
@@ -200,11 +212,11 @@ def signup():
             return flask.redirect(flask.url_for("signup"))
 
         elif len(user_pw) < 4:
-            flask.flash("Password Must be at least 4 digits")  # already exist
+            flask.flash("Password Must be at least 4 Digits")  # already exist
             return flask.redirect(flask.url_for("signup"))
 
         elif user_pw != user_repw:
-            flask.flash(" Password Not Matching ")
+            flask.flash("Password Not Matching")
             return flask.redirect(flask.url_for("signup"))
 
         else:
@@ -218,9 +230,6 @@ def signup():
             flask.flash(x + user_name)
             return flask.redirect(flask.url_for("login"))
     return flask.render_template("signup.html")
-
-
-# return flask.render_template("signup.html")
 
 
 @app.route("/logout", methods=["GET", "POST"])
@@ -334,7 +343,7 @@ def oauth2callback():
 
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
-    return flask.render_template("chatroom.html")
+    user = current_user.username
+    return flask.render_template("chatroom.html", username=user)
 
-# app.run(host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)
-
+socketio.run(app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)

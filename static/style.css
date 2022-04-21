@@ -20,6 +20,11 @@ h5 {
     font-weight: bold;
     font-size: 15px;
 }
+.success{
+    color: green;
+    font-weight: bold;
+    font-size: 15px;
+}
 
 .controller {
     position: relative;
@@ -30,11 +35,13 @@ h5 {
     padding: 20px;
     cursor: pointer;
 }
-.gamingNews{
+
+.gamingNews {
     width: 100px;
     height: 100px;
     margin: 5px;
 }
+
 .searched-game-title {
     font-size: 30px;
     font-weight: bold;
@@ -58,8 +65,8 @@ h5 {
 }
 
 .img1 {
-    width:50%;
-    height:50%;
+    width: 50%;
+    height: 50%;
 }
 
 .row {
@@ -71,24 +78,38 @@ h5 {
     padding: 5px;
 }
 
-.gamePlatform{
-    margin:auto;
+.gamePlatform {
+    margin: auto;
 
-    width:30%;
-    height:auto;
+    width: 30%;
+    height: auto;
     border-style: solid;
     border: 5px outset rgb(145, 145, 235);
-    border-radius:0.5em;
+    border-radius: 0.5em;
 
 }
 
-.eachPlatform{
-    margin:auto;
-    font-size : 18px;
-    width:40%;
-    height:auto;
+.eachPlatform {
+    margin: auto;
+    font-size: 18px;
+    width: 40%;
+    height: auto;
     border-style: solid;
     border: 5px outset rgb(145, 145, 235);
-    border-radius:3em;
+    border-radius: 3em;
 
+}
+
+#textChat {
+    display: inline-flex;
+    text-align: center;
+}
+
+#messages {
+    margin: auto;
+    width: 60%;
+    border: 5px solid grey;
+    background-color: whitesmoke;
+    padding: 10px;
+    text-align: left;
 }
