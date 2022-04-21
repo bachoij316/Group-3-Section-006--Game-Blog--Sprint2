@@ -26,13 +26,12 @@
     <script type="text/javascript">
         var myVar = "{{username}}";
 
-
         $(document).ready(function() {
         
             var socket = io();
        
             socket.on('message', function(msg) {
-                $("#messages").append('<li>' + msg + '</li>');
+                $("#messages").append('<p>' + msg + '</p>');
                 console.log('Received message');
             });
         
@@ -43,9 +42,13 @@
         
         });
         </script>
-        <ul id="messages"></ul>
-        <input type="text" id="myMessage">
-        <button id="sendbutton">Send</button>
+        <div id="messages"></div>
+        <div id="textChat">
+            <b style="float: left;">{{username}}: &nbsp;</b>
+            <input type="text" id="myMessage">
+            <button id="sendbutton" style="float: right;">Send</button>
+        </div>
+        
 </body>
 
 </html>
