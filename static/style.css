@@ -107,9 +107,12 @@ h5 {
 
 #messages {
     margin: auto;
-    width: 60%;
-    border: 5px solid grey;
-    background-color: whitesmoke;
-    padding: 10px;
-    text-align: left;
+    padding:4px;
+    background-color: beige;
+    width: 500px;
+    height: 225px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
+    border-style: double;
 }
