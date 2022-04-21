@@ -354,7 +354,6 @@ def oauth2callback():
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
     user = current_user.username
-
     return flask.render_template("chatroom.html", username=user)
 
 socketio.run(app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True)

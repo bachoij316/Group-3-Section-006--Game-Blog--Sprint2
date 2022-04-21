@@ -29,8 +29,7 @@
 
         $(document).ready(function() {
         
-            var socket = io.connect("0.0.0.0");
-        
+            var socket = io();
        
             socket.on('message', function(msg) {
                 $("#messages").append('<li>' + msg + '</li>');
