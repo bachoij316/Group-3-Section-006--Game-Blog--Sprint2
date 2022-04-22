@@ -146,7 +146,8 @@ def login():
     by a secret key.
     """
     if oauth2.has_credentials():
-        user = Users(username=oauth2.email, password=bin(0))
+
+        user = Users(id=oauth2.user_id, username=oauth2.email, password=bin(0))
         db.session.add(user)
         db.session.commit()
         return flask.render_template(
@@ -215,9 +216,7 @@ def signup():
         else:
             user_pw_hash = bcrypt.hashpw(user_pw.encode("utf-8"), bcrypt.gensalt())
             user = Users(username=user_name, password=user_pw_hash)
-
             db.session.add(user)
-
             db.session.commit()
             x = "Sign Up Completed! Login with "
             flask.flash(x + user_name)
