@@ -136,7 +136,6 @@ class SaveGames(db.Model):
 
 db.create_all()
 oauth2 = UserOAuth2(app)
-current_user.username = "Google User"
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -147,7 +146,7 @@ def login():
     """
     if oauth2.has_credentials():
         return flask.render_template(
-            "main.html", username=oauth2.email, user_id=oauth2.user_id
+            "main.html", username=oauth2.email, user_id=oauth2.user_id, creds=oauth2.credentials,
         )
     elif flask.request.method == "POST":
         user_form = flask.request.form
