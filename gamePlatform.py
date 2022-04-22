@@ -1,7 +1,3 @@
-# pylint: disable=invalid-envvar-default, unused-import, pointless-string-statement, no-member, invalid-name, no-else-return, too-few-public-methods, consider-using-f-string
-"""
-This files holds the logic for finding the game platform for the news section
-"""
 import os
 import json
 import requests
@@ -15,9 +11,6 @@ headers = {"X-RapidAPI-Host": "whatoplay.p.rapidapi.com", "X-RapidAPI-Key": myAP
 
 
 def get_game_platform(platform, numbers):
-    """
-    This function calls the gamespot API to get the platform of the game for the news
-    """
     querystring = {"platform": platform, "count": numbers}
 
     response = requests.request("GET", url, headers=headers, params=querystring)

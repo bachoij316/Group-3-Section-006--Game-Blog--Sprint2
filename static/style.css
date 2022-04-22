@@ -107,29 +107,12 @@ h5 {
 
 #messages {
     margin: auto;
-    padding: 4px;
+    padding:4px;
     background-color: beige;
     width: 500px;
     height: 225px;
     overflow-x: hidden;
     overflow-y: auto;
-    text-align: justify;
+    text-align:justify;
     border-style: double;
-}
-
-.landing_header {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 30px;
-}
-
-.landing_purpose {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 26px;
-}
-
-.landing_people {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-    font-style: italic;
 }

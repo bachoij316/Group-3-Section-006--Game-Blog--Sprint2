@@ -13,9 +13,7 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())  # Find the hidden .env file in directory
 client_id = os.getenv("client_id")  # Load IGDB client ID (used for API call)
 client_secret = os.getenv("client_secret")  # Load IGDB Client Secret Key
-access_token = os.getenv(
-    "access_token"
-)  # Load IGDB API Access Token (used for API call)
+access_token = os.getenv("access_token")  # Load IGDB API Access Token (used for API call)
 
 # Access Token: Listed in .env
 # Expires: around June 8, 2022
@@ -136,7 +134,6 @@ def get_cover_url(game_id: int):
 
     # Return cleaned image URL
     return image_url
-
 
 def get_similar_games(game_name: str):
     """
