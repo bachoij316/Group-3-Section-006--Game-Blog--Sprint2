@@ -95,7 +95,9 @@ def unauthorized():
     """
     return flask.redirect(flask.url_for("login"))
 
+
 # socket io decorations
+
 
 @socketio.on("message")
 def handleMessage(msg):
