@@ -116,20 +116,3 @@ h5 {
     text-align: justify;
     border-style: double;
 }
-
-.landing_header {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 30px;
-}
-
-.landing_purpose {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 26px;
-}
-
-.landing_people {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-    font-style: italic;
-}
