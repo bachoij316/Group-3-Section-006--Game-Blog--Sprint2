@@ -1,4 +1,4 @@
-# pylint: disable=invalid-envvar-default, unused-import, pointless-string-statement, no-member, invalid-name, no-else-return, too-few-public-methods
+# pylint: disable=invalid-envvar-default, unused-import, pointless-string-statement, no-member, invalid-name, no-else-return, too-few-public-methods, consider-using-f-string
 
 """
 Game Blog
@@ -13,24 +13,13 @@ import requests
 import socketio
 from sqlalchemy import ForeignKey
 import bcrypt
-from dotenv import load_dotenv, find_dotenv
-from gamespot import get_game_article
-
 from flask import Flask, session, abort, redirect, render_template
 from flask_socketio import SocketIO, send, emit
-from gamePlatform import get_game_platform
-from flask_sqlalchemy import SQLAlchemy
-
 from oauth2client.contrib.flask_util import UserOAuth2
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, EqualTo
-from flask_wtf import FlaskForm
-
-# from flask_bcrypt import Bcrypt
-
-
 from flask_login import (
     UserMixin,
     LoginManager,
@@ -39,6 +28,17 @@ from flask_login import (
     logout_user,
     current_user,
 )
+from flask_wtf import FlaskForm
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv, find_dotenv
+from gamespot import get_game_article
+
+from gamePlatform import get_game_platform
+
+
+# from flask_bcrypt import Bcrypt
+
+
 from igdb import (
     get_similar_games,
     search_game_data,
@@ -95,15 +95,23 @@ def unauthorized():
     """
     return flask.redirect(flask.url_for("login"))
 
+
 # socket io decorations
+
 
 @socketio.on("message")
 def handleMessage(msg):
+    """
+    This functions handles the sending of messages from a user to the chatroom
+    """
     send("{.username}: ".format(current_user) + msg, broadcast=True)
 
 
 @socketio.on("connect")
 def test_connect():
+    """
+    This function handles connecting the user to the chatroom
+    """
     send("Client connected: {.username}".format(current_user))
 
 
@@ -280,8 +288,7 @@ def account_post():
 @app.route("/main", methods=["GET", "POST"])
 def main():
     """
-    This function returns the main page of the app. Here a user can search
-    for a game and navigate to other pages in the app
+    This function handles the search requests and news api calls for the main page
     """
     user = current_user.username
     data = flask.request.form
@@ -312,12 +319,19 @@ def main():
 
 @app.route("/main2", methods=["GET", "POST"])
 def main2():
+    """
+    This function returns the main page of the app. Here a user can search
+    for a game and navigate to other pages in the app
+    """
     user = current_user.username
     return flask.render_template("main.html", username=user)
 
 
 @app.route("/NEWS", methods=["GET", "POST"])
 def NEWS():
+    """
+    This function gets the news from the gamespot api and puts them in a list to be displayed
+    """
     art_data = get_game_article()
     return flask.render_template(
         "NEWS.html",
@@ -331,6 +345,10 @@ def NEWS():
 
 @app.route("/gamePlatform", methods=["GET", "POST"])
 def gamePlatform():
+    """
+    This function is used to select which platform the user wants news about.
+    For example PC or Xbox.
+    """
     data = flask.request.form
     platform = data["platform"]
     numbers = data["numbers"]
@@ -357,9 +375,11 @@ def oauth2callback():
     print(data)
 
 
-
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
+    """
+    This function returns the page for the chatroom
+    """
     user = current_user.username
     return flask.render_template("chatroom.html", username=user)
 

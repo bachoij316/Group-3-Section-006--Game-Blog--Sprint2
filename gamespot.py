@@ -2,6 +2,7 @@
 Gamespot API
 Ba Choi
 """
+# pylint: disable=unused-import, line-too-long
 
 import os
 import json
@@ -15,6 +16,9 @@ BASE_URL = "http://www.gamespot.com/api/"
 
 
 def get_game_article():
+    """
+    This function gets the article for a game using the gamespot API
+    """
     endpoint_path = "articles/"
     articles = f"{BASE_URL}{endpoint_path}?api_key={myAPI}&filter=field:publish_date&sort=publish_date:desc&format=json&limit=5"
 
