@@ -148,13 +148,14 @@ def login():
     by a secret key.
     """
     if oauth2.has_credentials():
+        user = Users(username=oauth2.email)
+        db.session.add(user)
+        db.session.commit()
         return flask.render_template(
             "main.html", username=oauth2.email, user_id=oauth2.user_id
         )
     elif flask.request.method == "POST":
-
         user_form = flask.request.form
-
         if user_form["userName"] is None:
             flask.flash("Invalid User Information. Try Again!")
             return flask.render_template("login.html")
@@ -163,12 +164,7 @@ def login():
             user_name = user_form["userName"]
             userPW = user_form["userPW"]
             user = Users.query.filter_by(username=user_name).first()
-            print(user.password)
-            print(userPW)
-            print(type(userPW))
-            print(userPW.encode())
             userPW_hash = bcrypt.checkpw(userPW.encode("utf-8"), user.password)
-
             if userPW_hash:
                 login_user(user)
 
@@ -359,6 +355,9 @@ def oauth2callback():
     """
     This function is used by ouath for callback to the original webpage
     """
+    data = flask.request.form
+    print(data)
+
 
 
 @app.route("/chatroom", methods=["GET", "POST"])
