@@ -115,7 +115,7 @@ class Users(db.Model, UserMixin):
     __tablename__ = "Users"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(), nullable=False, unique=True)
+    username = db.Column(db.String(), unique=True)
     password = db.Column(db.LargeBinary(), nullable=False)
 
 
