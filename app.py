@@ -227,7 +227,7 @@ def signup():
     return flask.render_template("signup.html")
 
 
-@app.route("/logout", methods=["GET", "POST"])
+@app.route("/logout")
 def logout():
     """
     This function allows a user to logout of the app
@@ -275,6 +275,18 @@ def account_post():
 
     game_commit = SaveGames(username=current_user.username, game_name=game_name)
     db.session.add(game_commit)
+    db.session.commit()
+    return flask.redirect(flask.url_for("account"))
+
+
+@app.route("/del_game", methods=["POST"])
+def account_delete():
+    """
+    This function deletes the game from a users saved list.
+    """
+    data = flask.request.form["game_name"]
+    db_game_name = SaveGames.query.filter_by(game_name=data).first()
+    db.session.delete(db_game_name)
     db.session.commit()
     return flask.redirect(flask.url_for("account"))
 
@@ -359,7 +371,6 @@ def oauth2callback():
     print(data)
 
 
-
 @app.route("/chatroom", methods=["GET", "POST"])
 def chatroom():
     user = current_user.username
@@ -367,5 +378,6 @@ def chatroom():
 
 
 socketio.run(
-    app, host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)), debug=True
+    app,  # host=os.getenv("IP", "0.0.0.0"), port=int(os.getenv("PORT", 8080)),
+    debug=True,
 )
