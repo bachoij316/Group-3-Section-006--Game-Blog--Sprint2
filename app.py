@@ -146,7 +146,7 @@ def login():
     by a secret key.
     """
     if oauth2.has_credentials():
-        user = Users(username=oauth2.email)
+        user = Users(username=oauth2.email, password=" ")
         db.session.add(user)
         db.session.commit()
         return flask.render_template(
