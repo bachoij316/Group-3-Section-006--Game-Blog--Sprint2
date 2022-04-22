@@ -136,7 +136,7 @@ class SaveGames(db.Model):
 
 db.create_all()
 oauth2 = UserOAuth2(app)
-
+current_user.username = "Google User"
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
