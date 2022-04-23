@@ -22,10 +22,7 @@ def get_game_article():
     endpoint_path = "articles/"
     articles = f"{BASE_URL}{endpoint_path}?api_key={myAPI}&filter=field:publish_date&sort=publish_date:desc&format=json&limit=5"
 
-    # print(articles)
-    # result=requests.get(self.base_url + '/platforms/', params=params, headers={'user-agent':'newcoder'})
     response = requests.get(articles, headers={"user-agent": "newcoder"})
-    # print(response.status_code)
     response_json = response.json()
     art_list = []
     for i in range(5):

@@ -3,10 +3,8 @@
 This files holds the logic for finding the game platform for the news section
 """
 import os
-import json
 import requests
 from dotenv import load_dotenv, find_dotenv
-from bs4 import BeautifulSoup
 
 url = "https://whatoplay.p.rapidapi.com/platform"
 load_dotenv(find_dotenv())
@@ -35,6 +33,3 @@ def get_game_platform(platform, numbers):
         game_list.append(tmp)
 
     return game_list
-
-
-# print(get_game_platform("ios", 2))
